@@ -1,12 +1,11 @@
-import React, { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import React, { createContext, useState } from "react";
 
 export const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [auth, setAuth] = useState('hello')
-    const [git, setGit] = useState('hello')
+    // const [git, setGit] = useState('hello')
     // const [loginArr, setLoginArr] = useState([]);
 
     let API_URL = 'https://comfortable-gold-belt.cyclic.app';

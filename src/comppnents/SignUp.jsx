@@ -13,7 +13,7 @@ function SignUp() {
     const [password, setPassword] = useState('');
     const [statusMsg, setStatusMsg] = useState('');
     // auth Hook
-    const { isLoggedIn, setIsLoggedIn, API_URL } = useAuth()
+    const {setIsLoggedIn, API_URL } = useAuth()
     // use Navigate
     const navigate = useNavigate();
     // JS

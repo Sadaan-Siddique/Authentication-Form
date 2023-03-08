@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import BeatLoader from "react-spinners/BeatLoader";
 import useAuth from '../hooks/authHook';
 import { Link } from 'react-router-dom'
-import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies'
+import { bake_cookie } from 'sfcookies'
 
 function Login() {
     let [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const [statusMsg, setStatusMsg] = useState('');
     // auth Hook
-    const { isLoggedIn,setIsLoggedIn, API_URL } = useAuth()
+    const {setIsLoggedIn, API_URL } = useAuth()
     // use Navigate
     const navigate = useNavigate();
     // JS

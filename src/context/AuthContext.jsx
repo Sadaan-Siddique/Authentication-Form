@@ -11,7 +11,7 @@ function AuthContextProvider({ children }) {
     let cookie_data = read_cookie('isLoggedIn')
     console.log(cookie_data)
     useEffect(()=>{
-        if(cookie_data == true){
+        if(cookie_data === true){
             setIsLoggedIn(true)
         }
         // console.log(cookie_data);

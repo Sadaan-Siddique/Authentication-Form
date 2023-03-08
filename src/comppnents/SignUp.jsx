@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import BeatLoader from "react-spinners/BeatLoader";
 import useAuth from '../hooks/authHook';
 import { Link } from 'react-router-dom'
+import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies'
 
 function SignUp() {
     let [loading, setLoading] = useState(false);
@@ -31,6 +32,7 @@ function SignUp() {
             setLoading(false)
             console.log(res);
             setStatusMsg('You Have Signed in')
+            bake_cookie('isLoggedIn',true)
             navigate('/nav/main')
         }).catch((err) => {
             setLoading(false)

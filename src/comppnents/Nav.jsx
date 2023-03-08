@@ -35,7 +35,7 @@ function Nav() {
                             </li>
                         </ul>
                         <form className="d-flex">
-                            <Link className="btn btn-outline-light fw-bold" to="/">Logout</Link>
+                            <Link className="btn btn-outline-light fw-bold" to="/logout">Logout</Link>
                         </form>
                     </div>
                 </div>

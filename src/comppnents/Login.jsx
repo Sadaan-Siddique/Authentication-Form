@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import BeatLoader from "react-spinners/BeatLoader";
 import useAuth from '../hooks/authHook';
 import { Link } from 'react-router-dom'
+import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies'
 
 function Login() {
     let [loading, setLoading] = useState(false);
@@ -13,10 +14,11 @@ function Login() {
     const [password, setPassword] = useState('');
     const [statusMsg, setStatusMsg] = useState('');
     // auth Hook
-    const { setIsLoggedIn, API_URL } = useAuth()
+    const { isLoggedIn,setIsLoggedIn, API_URL } = useAuth()
     // use Navigate
     const navigate = useNavigate();
     // JS
+    // console.log(read_cookie('id'));
     const submitfunc = (e) => {
         setLoading(true)
         console.log(phone, password)
@@ -27,11 +29,14 @@ function Login() {
         }
         let url = API_URL + '/Login';
         axios.post(url, obj).then((res) => {
+                
             setIsLoggedIn(true)
             setLoading(false)
             console.log(res);
             setStatusMsg('You Have Logged in')
+            bake_cookie('isLoggedIn',true)
             navigate('/nav/main')
+
         }).catch((err) => {
             setLoading(false)
             console.log(err);

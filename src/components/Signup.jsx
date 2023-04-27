@@ -8,6 +8,7 @@ import { bake_cookie } from 'sfcookies';
 
 function Signup() {
     let [loading, setLoading] = useState(false);
+    const [statusMsg, setStatusMsg] = useState('');
     const { setIsLoggedIn, API_URL } = useAuth()
     const navigate = useNavigate();
 
@@ -16,25 +17,36 @@ function Signup() {
 
     // JS
     const btnfunc = (e) => {
-        setLoading(true)
-        e.preventDefault();
-        let obj = {
-            phone: phoneNum.current.value,
-            password: password.current.value
-        }
-        console.log(obj);
-        let url = API_URL + '/signup'
+        if (phoneNum.current.value === '' || password.current.value === '') {
+            alert('Please Write Phone Number or Password');
+        } else {
+            setLoading(true)
+            e.preventDefault();
+            let obj = {
+                phone: phoneNum.current.value,
+                password: password.current.value
+            }
+            console.log(obj);
+            let url = API_URL + '/signup'
 
-        axios.post(url, obj).then((res) => {
-            console.log(res);
-            setLoading(false)
-            setIsLoggedIn(true)
-            bake_cookie('cookie',true);
-            navigate('/nav/main')
-        }).catch((err) => {
-            console.log(err)
-            setLoading(false)
-        })
+            axios.post(url, obj).then((res) => {
+                setStatusMsg('You have Logged In');
+                console.log(res);
+                setLoading(false)
+                setIsLoggedIn(true)
+                bake_cookie('cookie', true);
+                setInterval(() => {
+                    navigate('/nav/main')
+                }, 3000)
+            }).catch((err) => {
+                setStatusMsg('Not Logged In');
+                console.log(err)
+                setLoading(false)
+            })
+            setInterval(() => {
+                setStatusMsg('');
+            }, 2500)
+        }
     }
     return (
         <>
@@ -54,6 +66,7 @@ function Signup() {
                     <input ref={password} type="password" className="w-100 htmlForm-control" id="exampleInputPassword1" />
                 </div>
                 <button type="submit" onClick={btnfunc} className="btn btn-primary">{loading ? <BeatLoader style={{ color: "black", position: "relative", top: "2px" }} size="12px" /> : 'Submit'}</button>
+                <h2>{statusMsg}</h2>
             </div>
         </>
     )

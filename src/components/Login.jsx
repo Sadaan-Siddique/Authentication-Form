@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 import useAuth from '../hooks/authHooks';
 import BeatLoader from "react-spinners/BeatLoader";
@@ -9,7 +9,7 @@ import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies'
 function Login() {
     //  Hooks
     let [loading, setLoading] = useState(false);
-
+    const [statusMsg, setStatusMsg] = useState('');
     const { setIsLoggedIn, API_URL } = useAuth()
 
     const phoneNum = useRef();
@@ -18,26 +18,42 @@ function Login() {
     // JS
 
     const btnfunc = (e) => {
-        e.preventDefault();
-        setLoading(true);
-        let obj = {
-            phone: phoneNum.current.value,
-            password: password.current.value
-        }
-        console.log(obj);
-        let url = API_URL + '/login'
+        if (phoneNum.current.value === '' || password.current.value === '') {
+            alert('Please Write Phone Number or Password');
+        } else {
+            e.preventDefault();
+            setLoading(true);
+            let obj = {
+                phone: phoneNum.current.value,
+                password: password.current.value
+            }
+            console.log(obj);
+            let url = API_URL + '/login'
 
-        axios.post(url, obj).then((res) => {
-            setLoading(false)
-            console.log(res);
-            bake_cookie('cookie',true);
-            setIsLoggedIn(true)
-            navigate('/nav/main')
-        }).catch((err) => {
-            setLoading(false)
-            console.log(err)
-        })
+            axios.post(url, obj).then((res) => {
+                setStatusMsg('You have Logged In');
+                setLoading(false)
+                console.log(res);
+                bake_cookie('cookie', true);
+                setIsLoggedIn(true)
+                setInterval(() => {
+                    navigate('/nav/main')
+                }, 3000)
+            }).catch((err) => {
+                setStatusMsg('Not Logged In');
+                setLoading(false)
+                console.log(err)
+            })
+            setInterval(() => {
+                setStatusMsg('');
+            }, 2500)
+        }
     }
+    // useEffect(() => {
+    //     setInterval(() => {
+    //         setStatusMsg('');
+    //     }, 2000)
+    // }, [])
     return (
         <>
             <div className='container text-center'>
@@ -59,6 +75,7 @@ function Login() {
                 <button type="submit" onClick={btnfunc} className="btn btn-primary">{loading ?
                     <BeatLoader style={{ color: "black", position: "relative", top: "2px" }} size="12px" /> : 'Submit'
                 }</button>
+                <h2>{statusMsg}</h2>
             </div>
         </>
     )

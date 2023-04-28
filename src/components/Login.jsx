@@ -53,7 +53,7 @@ function Login() {
     //     setInterval(() => {
     //         setStatusMsg('');
     //     }, 2000)
-    // }, [])
+    // }, [statusMsg])
     return (
         <>
             <div className='container text-center'>

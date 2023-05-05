@@ -1,16 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 import useAuth from '../hooks/authHooks';
 import BeatLoader from "react-spinners/BeatLoader";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies'
+import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
 
 function Login() {
     //  Hooks
     let [loading, setLoading] = useState(false);
     const [statusMsg, setStatusMsg] = useState('');
-    const { setIsLoggedIn, API_URL } = useAuth()
+    const { setIsLoggedIn, API_URL } = useAuth();
 
     const phoneNum = useRef();
     const password = useRef();
@@ -28,17 +28,17 @@ function Login() {
                 password: password.current.value
             }
             console.log(obj);
-            let url = API_URL + '/login'
+            let url = API_URL + '/login';
 
             axios.post(url, obj).then((res) => {
                 setStatusMsg('You have Logged In');
-                setLoading(false)
+                setLoading(false);
                 console.log(res);
                 bake_cookie('cookie', true);
                 setIsLoggedIn(true)
                 setInterval(() => {
                     navigate('/nav/main')
-                }, 3000)
+                }, 2600);
             }).catch((err) => {
                 setStatusMsg('Not Logged In');
                 setLoading(false)

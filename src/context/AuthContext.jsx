@@ -6,13 +6,13 @@ function AuthContextProvider({ children }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     // const [git, setGit] = useState('hello')
     // const [loginArr, setLoginArr] = useState([]);
-    let cookieData = read_cookie('cookie')
-    console.log(cookieData)
+    let cookieData = read_cookie('cookie');
+    console.log(cookieData);
     useEffect(()=>{
         if(cookieData === true){
-            setIsLoggedIn(true)
+            setIsLoggedIn(true);
         }else{
-            setIsLoggedIn(false)
+            setIsLoggedIn(false);
         }
     },[])
 

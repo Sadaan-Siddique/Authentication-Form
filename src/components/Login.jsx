@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import useAuth from '../hooks/authHooks';
 import BeatLoader from "react-spinners/BeatLoader";
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { bake_cookie, read_cookie, delete_cookie } from 'sfcookies';
+import { bake_cookie } from 'sfcookies';
 
 function Login() {
     //  Hooks
@@ -36,7 +36,7 @@ function Login() {
                 console.log(res);
                 bake_cookie('cookie', true);
                 setIsLoggedIn(true)
-                setInterval(() => {
+                setTimeout(() => {
                     navigate('/nav/main')
                 }, 2600);
             }).catch((err) => {
@@ -44,7 +44,7 @@ function Login() {
                 setLoading(false)
                 console.log(err)
             })
-            setInterval(() => {
+            setTimeout(() => {
                 setStatusMsg('');
             }, 2500)
         }
